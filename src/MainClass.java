@@ -1,12 +1,9 @@
-import java.util.Arrays;
+import java.util.Scanner;
 
 public class MainClass {
+
     public static void main(String[] args) {
 
-// todo In the Main class create several families, so that every class uses all the available constructors. Display data about every person.
-//  In the Main class: create a mother, father, child and his pet. Specify all the needed links (for child to his parents and to the pet), in order to form a full family.
-//  Call all available methods for the child (including  toString() method) and his pet.
-        
         String[][] schedule = new String[7][2];
         schedule[0][0] = "Monday";
         schedule[0][1] = "Go to courses; watch a film";
@@ -23,63 +20,62 @@ public class MainClass {
         schedule[6][0] = "Sunday";
         schedule[6][1] = "Home cleaning; go to programming course";
 
-        Human father = new Human("Vito", "Karleone", 1952);
-        Human mother = new Human("Jane", "Karleone", 1955);
+        Scanner scanner = new Scanner(System.in);
 
-        Human michael = new Human("Michael", "Karleone", 1977, 90, new Pet("dog", "Rock", 5,  75, new String[]{"eat", "drink", "sleep"}), mother, father, schedule);
-        Human santino = new Human("Santino", "Karleone", 1972, mother, father);
-        Human frederico = new Human();
+        while (true) {
+            System.out.print("Please, input the day of the week: ");
+            String inputDay = scanner.nextLine();
+            String input = inputDay.toLowerCase().trim();
 
-        System.out.println("Name = " + michael.getName());
-        System.out.println("Surname = " + michael.getSurname());
-        System.out.println("Year = " + michael.getYear());
-        System.out.println("IQ = " + michael.getIq());
-        System.out.println("Mother = " + michael.getMother());
-        System.out.println("Father = " + michael.getFather());
-        System.out.println("Pet = " + michael.getPet());
-        System.out.println("Michael = " + michael.toString());
-        System.out.println("isFeed = " + michael.feedPet(false));
-        System.out.println("----------------------------------");
+            if (input.equals("exit")) {
+                System.out.println("See you soon!");
+                break;
+            }
 
+            if (input.contains("change")) {
+                String dayLowerCase = input.substring(6).toLowerCase().trim();
+                String dayFirstLetter = dayLowerCase.substring(0,1).toUpperCase();
+                String day = dayFirstLetter + dayLowerCase.substring(1);
 
-        Human harryMother = new Human("Lily", "Potter", 1960);
-        Human harryFather = new Human("James", "Potter", 1960);
-        Pet harryOwl = new Pet("Owl", "Hedwig", 5, 23, new String[]{"eat", "fly", "deliver a letter"});
-        Human harry = new Human("Harry", "Potter", 1980,120, harryOwl, harryMother, harryFather, schedule);
+                System.out.print("Please, input new tasks for " + day + ": ");
+                String newTask = scanner.nextLine();
 
-        Human ronMother = new Human("Molly", "Weasley", 1950);
-        Human ronFather = new Human("Arthur", "Weasley", 1950);
-        Human ron = new Human("Ron", "Weasley", 1980, ronMother, ronFather);
-        Pet ronRat = new Pet("Rat");
+                for (int i = 0; i < 7; i++) {
+                    if (schedule[i][0].equals(day)) {
+                        schedule[i][1] = newTask;
+                        System.out.println("New task added to " + day);
+                        break;
+                    }
+                }
+                continue;
+            }
 
-        Human hermione = new Human();
-        Pet hermioneCat = new Pet("Cat", "Crookshanks", 4, 90, new String[]{"sleep", "sleep", "sleep"});
-
-        Pet toad = new Pet();
-
-
-        System.out.println("Specy = " + harryOwl.getSpecies());
-        System.out.println("Nickname = " + harryOwl.getNickname());
-        System.out.println("Age = " + harryOwl.getAge());
-        System.out.println("Trick level = " + harryOwl.getTrickLevel());
-        System.out.println("Habbits = " + Arrays.toString(harryOwl.getHabits()));
-        System.out.println("Owl to string = " + harryOwl.toString());
-        harryOwl.eat();
-        harryOwl.foul();
-        harryOwl.respond();
-        System.out.println();
-
-        System.out.println("Harry = " + harry.getName());
-        System.out.println("Harry surname = " + harry.getSurname());
-        System.out.println("Harry mother = " + harry.getMother());
-        System.out.println("Harry father = " + harry.getFather());
-        System.out.println("Harry year = " + harry.getYear());
-        System.out.println("Harry iq = " + harry.getIq());
-        System.out.println("Harry schedule = " + Arrays.deepToString(harry.getSchedule()));
-        System.out.println("isFeed = " + harry.feedPet(false));
-        harry.describePet();
-        harry.greetPet();
-        System.out.println(harry.toString());
-
+            switch (input) {
+                case "monday":
+                    System.out.printf("Your tasks for %s: %s\n", schedule[0][0], schedule[0][1]);
+                    break;
+                case "tuesday":
+                    System.out.printf("Your tasks for %s: %s\n", schedule[1][0], schedule[1][1]);
+                    break;
+                case "wednesday":
+                    System.out.printf("Your tasks for %s: %s\n", schedule[2][0], schedule[2][1]);
+                    break;
+                case "thursday":
+                    System.out.printf("Your tasks for %s: %s\n", schedule[3][0], schedule[3][1]);
+                    break;
+                case "friday":
+                    System.out.printf("Your tasks for %s: %s\n", schedule[4][0], schedule[4][1]);
+                    break;
+                case "saturday":
+                    System.out.printf("Your tasks for %s: %s\n", schedule[5][0], schedule[5][1]);
+                    break;
+                case "sunday":
+                    System.out.printf("Your tasks for %s: %s\n", schedule[6][0], schedule[6][1]);
+                    break;
+                default:
+                    System.out.println("Sorry, I don't understand you, please try again.");
+                    break;
+            }
+        }
     }
 }
